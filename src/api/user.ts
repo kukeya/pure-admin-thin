@@ -1,4 +1,5 @@
 import { http } from "@/utils/http";
+import { baseUrlApi } from "./utils";
 
 export type UserResult = {
   success: boolean;
@@ -29,8 +30,23 @@ export type RefreshTokenResult = {
 };
 
 /** 登录 */
+/* export const getLogin = (data?: object) => {
+  return http.request<UserResult>("post", baseUrlApi("auth/login/password"), {
+    data
+  });
+}; */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/login", { data });
+  return http.request<any>("post", baseUrlApi("auth/login/password"), {
+    data
+  });
+};
+
+export const getUserInfo = () => {
+  return http.request<any>("get", baseUrlApi("user/info/me"));
+};
+
+export const updateUserInfo = (data?: object) => {
+  return http.request<any>("post", baseUrlApi("/user/info/update"), { data });
 };
 
 /** 刷新token */
