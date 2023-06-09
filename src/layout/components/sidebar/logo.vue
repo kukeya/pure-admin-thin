@@ -6,7 +6,8 @@ const props = defineProps({
   collapse: Boolean
 });
 
-const { title } = useNav();
+// const { title } = useNav();
+const title = "AlumiNet";
 </script>
 
 <template>

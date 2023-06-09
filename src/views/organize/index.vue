@@ -25,6 +25,7 @@ onMounted(() => {
 });
 
 const dataList = ref([]);
+const memberList = ref([]);
 const columns: TableColumnList = [
   {
     label: "ID",
@@ -43,6 +44,21 @@ const columns: TableColumnList = [
     width: "120",
     fixed: "right",
     slot: "operation"
+  }
+];
+
+const memberColumns: TableColumnList = [
+  {
+    label: "昵称",
+    prop: "nickname"
+  },
+  {
+    label: "邮箱",
+    prop: "email"
+  },
+  {
+    label: "职业生涯",
+    prop: "busLife"
   }
 ];
 
@@ -65,6 +81,7 @@ const addOrganize = () => {
 };
 
 const dialogFormVisible = ref(false);
+const dialogMemberVisible = ref(false);
 const formLabelWidth = "140px";
 const newOrg = reactive({
   name: "",
@@ -73,12 +90,12 @@ const newOrg = reactive({
 });
 
 function handleMember(row) {
+  dialogMemberVisible.value = true;
   new Promise((resolve, reject) => {
     getMember(row.id)
       .then(res => {
         if (res.code === "SUCCESS") {
-          
-          message("申请成功，等待审核", { type: "success" });
+          memberList.value = res.data;
         } else {
           message(res.msg, { type: "error" });
         }
@@ -132,6 +149,10 @@ function handleMember(row) {
           <el-button type="primary" @click="addOrganize"> 提交 </el-button>
         </span>
       </template>
+    </el-dialog>
+
+    <el-dialog v-model="dialogMemberVisible" title="组织成员">
+      <pure-table :data="memberList" :columns="memberColumns" />
     </el-dialog>
   </div>
 </template>

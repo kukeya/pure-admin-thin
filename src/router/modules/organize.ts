@@ -20,6 +20,14 @@ export default {
       meta: {
         title: "所有组织"
       }
+    },
+    {
+      path: "/organize/orgManage",
+      name: "OrgManage",
+      component: () => import("@/views/organize/orgManage.vue"),
+      meta: {
+        title: "组织管理"
+      }
     }
   ]
 };
